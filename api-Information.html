@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Documentación de Endpoints API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f9f9f9;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background: #2980b9;
+            color: white;
+        }
+        code {
+            background: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .note {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Documentación de Endpoints API</h1>
+
+    <section>
+        <h2>Usuarios (Users)</h2>
+        <p>Endpoints para gestión de usuarios.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Método</th>
+                    <th>Ruta</th>
+                    <th>Descripción</th>
+                    <th>Parámetros / Body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>GET</td>
+                    <td>/users</td>
+                    <td>Obtener lista de todos los usuarios</td>
+                    <td>Sin parámetros</td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>/users/{id}</td>
+                    <td>Obtener un usuario por su ID</td>
+                    <td>Ruta: <code>id</code> (número)</td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>/users</td>
+                    <td>No permitido en este controlador. Registrar usuario se hace vía <code>/auth</code>.</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>PUT</td>
+                    <td>/users/{id}</td>
+                    <td>Actualizar usuario existente</td>
+                    <td>Body JSON con: <code>name</code>, <code>email</code>, <code>password</code></td>
+                </tr>
+                <tr>
+                    <td>DELETE</td>
+                    <td>/users/{id}</td>
+                    <td>Eliminar usuario por ID</td>
+                    <td>Ruta: <code>id</code> (número)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Proyectos (Projects)</h2>
+        <p>Endpoints para gestión de proyectos.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Método</th>
+                    <th>Ruta</th>
+                    <th>Descripción</th>
+                    <th>Parámetros / Body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>GET</td>
+                    <td>/projects</td>
+                    <td>Obtener lista de todos los proyectos</td>
+                    <td>Sin parámetros</td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>/projects/{id}</td>
+                    <td>Obtener proyecto por ID</td>
+                    <td>Ruta: <code>id</code> (número)</td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>/projects</td>
+                    <td>Crear un nuevo proyecto</td>
+                    <td>Body JSON con: <code>title</code>, <code>description</code>, <code>start_date</code>, <code>delivery_date</code>, <code>status</code>, <code>user_id</code></td>
+                </tr>
+                <tr>
+                    <td>PUT</td>
+                    <td>/projects/{id}</td>
+                    <td>Actualizar proyecto existente</td>
+                    <td>Body JSON con: <code>title</code>, <code>description</code>, <code>start_date</code>, <code>delivery_date</code>, <code>status</code>, <code>user_id</code></td>
+                </tr>
+                <tr>
+                    <td>DELETE</td>
+                    <td>/projects/{id}</td>
+                    <td>Eliminar proyecto por ID</td>
+                    <td>Ruta: <code>id</code> (número)</td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>/projects/user/{user_id}</td>
+                    <td>Obtener proyectos por ID de usuario</td>
+                    <td>Ruta: <code>user_id</code> (número)</td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>/projects/upload/{id}</td>
+                    <td>Sube un archivo relacionado con un proyecto</td>
+                    <td>
+                        Ruta: <code>id</code> (número)<br>
+                        Body: archivo en campo <code>file</code> (form-data)
+                    </td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>/projects/files/{id}</td>
+                    <td>Obtiene todos los archivos relacionados con un proyecto</td>
+                    <td>Ruta: <code>id</code> (número)</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Respuestas de archivos</h3>
+        <ul>
+            <li><b>POST /projects/upload/{id}</b>:
+                <ul>
+                    <li>200 OK: Archivo subido exitosamente.</li>
+                    <li>400 Bad Request: No se proporcionó un archivo.</li>
+                    <li>500 Internal Server Error: Error al subir el archivo.</li>
+                </ul>
+            </li>
+            <li><b>GET /projects/files/{id}</b>:
+                <ul>
+                    <li>200 OK: Lista de archivos.</li>
+                    <li>404 Not Found: No se encontraron archivos para este proyecto.</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Autenticación (Auth)</h2>
+        <p>Endpoints para login y registro de usuarios.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Método</th>
+                    <th>Ruta</th>
+                    <th>Descripción</th>
+                    <th>Body JSON</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>POST</td>
+                    <td>/auth/login</td>
+                    <td>Inicio de sesión (login)</td>
+                    <td><code>email</code>, <code>password</code></td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>/auth/register</td>
+                    <td>Registro de nuevo usuario</td>
+                    <td><code>name</code>, <code>email</code>, <code>password</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note">El login devuelve un token JWT válido por 1 día si las credenciales son correctas.</p>
+    </section>
+
+</body>
+</html>
