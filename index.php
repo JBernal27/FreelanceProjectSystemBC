@@ -44,7 +44,7 @@ if ($c) {
     $controllerFile = "controllers/{$c}Controller.php";
 
     if (file_exists($controllerFile)) {
-        require_once($controllerFile);
+        require_once $controllerFile;
         $controllerClass = "{$c}Controller";
 
         if (class_exists($controllerClass)) {

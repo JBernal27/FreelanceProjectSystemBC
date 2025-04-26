@@ -38,10 +38,11 @@ class projectsController
         if (isset($data['title'], $data['description'], $data['start_date'], $data['delivery_date'], $data['status'])) {
             $data['user_id'] = $user->user->id;
 
-            $result = $this->projectModel->create($data);
-            if ($result) {
+            $projectId = $this->projectModel->create($data);
+            if ($projectId) {
                 http_response_code(201);
-                echo json_encode(["message" => "Proyecto creado exitosamente"]);
+                $project = $this->projectModel->getById($projectId);
+                echo json_encode(["message" => "Proyecto creado exitosamente", "project" => $project]);
             } else {
                 http_response_code(500);
                 echo json_encode(["message" => "Error al crear el proyecto"]);

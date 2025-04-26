@@ -28,7 +28,7 @@ class Project extends DB
         $sql = "INSERT INTO projects (title, description, start_date, delivery_date, status, user_id, created_at) 
                 VALUES (:title, :description, :start_date, :delivery_date, :status, :user_id, :created_at)";
         $query = $this->prepare($sql);
-        return $query->execute([
+        $success = $query->execute([
             ':title' => $data['title'],
             ':description' => $data['description'],
             ':start_date' => $data['start_date'],
@@ -37,6 +37,9 @@ class Project extends DB
             ':user_id' => $data['user_id'],
             ':created_at' => $data['created_at'] ?? date('Y-m-d H:i:s')
         ]);
+
+        // Si la inserción fue exitosa, retorna el ID del registro recién creado
+        return $success ? $this->pdo->lastInsertId() : false;
     }
 
     public function update($id, $data)

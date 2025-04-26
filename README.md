@@ -22,7 +22,7 @@ Endpoints para gestión de proyectos.
 |--------|-----------------------------|-----------------------------------------------|--------------------------------------------------------------------------------------------------|
 | GET    | /projects                   | Obtener lista de todos los proyectos          | Sin parámetros                                                                                   |
 | GET    | /projects/{id}              | Obtener proyecto por ID                       | Ruta: `id` (número)                                                                              |
-| POST   | /projects                   | Crear un nuevo proyecto                       | Body JSON con: `title`, `description`, `start_date`, `delivery_date`, `status`, `user_id`       |
+| POST   | /projects                   | Crear un nuevo proyecto                       | Body JSON con: `title`, `description`, `start_date`, `delivery_date`, `status`                                |
 | PUT    | /projects/{id}              | Actualizar proyecto existente                 | Body JSON con: `title`, `description`, `start_date`, `delivery_date`, `status`, `user_id`       |
 | DELETE | /projects/{id}              | Eliminar proyecto por ID                      | Ruta: `id` (número)                                                                              |
 | GET    | /projects/user/{user_id}    | Obtener proyectos por ID de usuario           | Ruta: `user_id` (número)                                                                        |

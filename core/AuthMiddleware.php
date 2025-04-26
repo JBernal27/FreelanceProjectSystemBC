@@ -17,7 +17,7 @@ function verifyJWT()
 
     try {
         $decoded = JWT::decode($token, new Key($key, 'HS256'));
-        return $decoded; // Devuelve el payload del token si es válido
+        return $decoded;
     } catch (Exception $e) {
         http_response_code(401);
         echo json_encode(["message" => "Token inválido", "error" => $e->getMessage()]);
