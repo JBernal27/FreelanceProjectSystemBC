@@ -66,9 +66,11 @@ class projectsController
 
     public function PUT($project_id)
     {
+        $user = verifyJWT();
         $data = json_decode(file_get_contents("php://input"), true);
 
-        if (isset($data['title'], $data['description'], $data['start_date'], $data['delivery_date'], $data['status'], $data['user_id'])) {
+        if (isset($data['title'], $data['description'], $data['start_date'], $data['delivery_date'], $data['status'])) {
+            $data['user_id'] = $user->user->id;
             $result = $this->projectModel->update($project_id, $data);
             if ($result) {
                 http_response_code(200);
